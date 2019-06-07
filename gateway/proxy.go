@@ -54,7 +54,7 @@ func newDirector(targetURL *url.URL) func(req *http.Request) {
 
 	return func(req *http.Request) {
 		// Update headers to support SSL redirection
-		req.URL.Scheme = targetURL.Scheme
+		req.URL.Scheme = "http"
 		req.URL.Host = targetURL.Host
 		req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
 		req.URL.Path = singleJoiningSlash(targetURL.Path, req.URL.Path)
