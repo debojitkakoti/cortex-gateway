@@ -29,7 +29,7 @@ var (
 // newProxy creates a new reverse proxy for a single upstream service
 func newProxy(target string, targetName string) (*Proxy, error) {
 	url, err := url.Parse(target)
-	fmt.Println("Url from newProxy is %s", url)
+	fmt.Println("Host from newProxy is %s", url.Host)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,6 @@ func (p *Proxy) Handler(res http.ResponseWriter, req *http.Request) {
 
 func newDirector(targetURL *url.URL) func(req *http.Request) {
 	targetQuery := targetURL.RawQuery
-	fmt.Println("targetURL from newDirector is %s", targetUrl)
 
 	return func(req *http.Request) {
 		// Update headers to support SSL redirection
