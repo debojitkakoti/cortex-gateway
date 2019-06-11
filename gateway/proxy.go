@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -55,7 +56,9 @@ func newDirector(targetURL *url.URL) func(req *http.Request) {
 	return func(req *http.Request) {
 		// Update headers to support SSL redirection
 		req.URL.Scheme = "http"
+
 		req.URL.Host = targetURL.Host
+		fmt.Println("Host is %s", targetURL.Host)
 		req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
 		req.URL.Path = singleJoiningSlash(targetURL.Path, req.URL.Path)
 		req.Host = targetURL.Host
