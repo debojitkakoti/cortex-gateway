@@ -58,11 +58,12 @@ func newDirector(targetURL *url.URL) func(req *http.Request) {
 		// Update headers to support SSL redirection
 		req.URL.Scheme = "http"
 
-		req.URL.Host = targetURL.Host
+		req.URL.Host = "cortex1:9009"
 		fmt.Println("Host is %s", targetURL.Host)
 		req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
 		req.URL.Path = singleJoiningSlash(targetURL.Path, req.URL.Path)
-		req.Host = targetURL.Host
+		//req.Host = targetURL.Host
+		req.Host = "cortex1:9009"
 		if targetQuery == "" || req.URL.RawQuery == "" {
 			req.URL.RawQuery = targetQuery + req.URL.RawQuery
 		} else {
